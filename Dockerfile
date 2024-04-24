@@ -9,19 +9,7 @@ RUN apt-get update && \
     apt-get install -y openjdk-11-jdk gnupg2 curl build-essential wget && \
     apt-get clean;
 
-# Set JAVA_HOME environment variable
-RUN ARCH=$(uname -m) && \
-    if [ "$ARCH" = "x86_64" ]; then \
-        JAVA_HOME_ARCH="amd64"; \
-    elif [ "$ARCH" = "aarch64" ]; then \
-        JAVA_HOME_ARCH="arm64"; \
-    else \
-        JAVA_HOME_ARCH="$ARCH"; \
-    fi && \
-    echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$JAVA_HOME_ARCH" > /etc/environment && \
-    . /etc/environment
 
-#ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-$ARCH
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # Add sbt repository and import the GPG key directly
